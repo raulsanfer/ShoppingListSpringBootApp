@@ -10,4 +10,5 @@ public class MercaproApplication {
 		SpringApplication.run(MercaproApplication.class, args);
 	}
 
+
 }
