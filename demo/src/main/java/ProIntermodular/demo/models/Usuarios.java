@@ -1,17 +1,17 @@
 package ProIntermodular.demo.models;
 
 import jakarta.persistence.*;
+@Entity
+@Table(name = "usuarios")
 
 public class Usuarios {
 
 
-    @Entity
-    @Table(name = "usuarios")
-    public class UsuariosModel {
+
 
 
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO.IDENTITY)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int id;
 
         @Column
@@ -53,4 +53,4 @@ public class Usuarios {
             this.contrasena = contrasena;
         }
     }
-}
+
