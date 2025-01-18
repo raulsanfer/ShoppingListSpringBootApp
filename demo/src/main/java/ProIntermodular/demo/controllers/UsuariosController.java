@@ -16,6 +16,7 @@ public class UsuariosController {
 
     @Autowired
     private UsuariosService usuariosService;
+
     @GetMapping
     public ArrayList<Usuarios> getUsuarios(){
         return this.usuariosService.getUsuarios();
@@ -46,4 +47,8 @@ public class UsuariosController {
         }
     }
 
+    @PostMapping("/login")
+    public Usuarios login(@RequestParam String email, @RequestParam String contrasena) {
+        return this.usuariosService.getByLogin(email, contrasena);
+    }
 }

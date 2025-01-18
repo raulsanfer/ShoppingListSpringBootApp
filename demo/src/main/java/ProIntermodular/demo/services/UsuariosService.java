@@ -18,12 +18,17 @@ public class UsuariosService {
         return (ArrayList<Usuarios>) usuariosRepositories.findAll();
     }
 
+
     public Usuarios guardar(Usuarios usuarios) {
         return usuariosRepositories.save(usuarios);
     }
 
     public Optional<Usuarios> getById(Long id) {
         return usuariosRepositories.findById(id);
+    }
+
+    public Usuarios getByLogin(String email,String pass ) {
+        return usuariosRepositories.findByEmailAndContrasena(email, pass);
     }
 
     public Usuarios updateById(Usuarios request, Long id) {
@@ -33,6 +38,7 @@ public class UsuariosService {
         usuarios.setContrasena(request.getContrasena());
         return usuarios;
     }
+
 
     public Boolean deleteUsuarios(Long id) {
 

@@ -6,10 +6,6 @@ import jakarta.persistence.*;
 
 public class Usuarios {
 
-
-
-
-
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int id;
