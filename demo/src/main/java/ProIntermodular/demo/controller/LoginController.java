@@ -1,14 +1,10 @@
-package ProIntermodular.demo.controllers;
+package ProIntermodular.demo.controller;
 
-import ProIntermodular.demo.models.Usuarios;
-import ProIntermodular.demo.services.UsuariosService;
+import ProIntermodular.demo.service.UsuariosService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.swing.*;
 
 @Controller
 public class LoginController {

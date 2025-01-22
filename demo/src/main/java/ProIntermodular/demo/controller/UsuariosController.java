@@ -1,8 +1,7 @@
-package ProIntermodular.demo.controllers;
+package ProIntermodular.demo.controller;
 
-import ProIntermodular.demo.models.Usuarios;
-import ProIntermodular.demo.services.UsuariosService;
-import jakarta.persistence.*;
+import ProIntermodular.demo.model.Usuarios;
+import ProIntermodular.demo.service.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -114,20 +114,42 @@
 </div>
 
 <script>
-    // Script para manejar el botón Guardar
-    document.getElementById('saveButton').addEventListener('click', () => {
+    document.getElementById('saveButton').addEventListener('click', async () => {
         const listName = document.getElementById('listName').value;
         const listDate = document.getElementById('listDate').value;
 
-        if (listName && listDate) {
-            alert(`Nueva lista guardada:\nNombre: ${listName}\nFecha: ${listDate}`);
-            // Aquí puedes agregar lógica para enviar los datos al servidor o actualizar la lista principal
-            document.getElementById('newListForm').reset(); // Limpia el formulario
+        if (listName.trim() && listDate.trim()) {
+            const data = {
+                nombre: listName,
+                date: listDate
+            };
+
+            try {
+                const response = await fetch('http://localhost:8080/api/lists', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    alert('Lista guardada correctamente');
+                    document.getElementById('newListForm').reset();
+                } else {
+                    alert('Error al guardar la lista');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al comunicarse con el servidor');
+            }
         } else {
             alert('Por favor, completa todos los campos.');
         }
     });
 </script>
+
+
 
 </body>
 </html>

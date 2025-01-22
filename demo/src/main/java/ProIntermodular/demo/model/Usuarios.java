@@ -1,4 +1,4 @@
-package ProIntermodular.demo.models;
+package ProIntermodular.demo.model;
 
 import jakarta.persistence.*;
 @Entity
