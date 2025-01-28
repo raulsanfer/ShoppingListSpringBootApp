@@ -3,13 +3,15 @@ package ProIntermodular.demo.controller;
 import ProIntermodular.demo.model.Usuarios;
 import ProIntermodular.demo.service.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 
-@RestController
+@Controller
 @RequestMapping("/usuarios")
 public class UsuariosController {
 
@@ -50,4 +52,12 @@ public class UsuariosController {
     public Usuarios login(@RequestParam String email, @RequestParam String contrasena) {
         return this.usuariosService.getByLogin(email, contrasena);
     }
+
+//Registro de usuario
+
+     @PostMapping("/registro")
+    public ResponseEntity<Usuarios> registrarUsuario(@RequestBody Usuarios usuarios){
+        Usuarios usuarioguardado = usuariosService.registroUsuario(usuarios);
+        return ResponseEntity.ok(usuarioguardado);// Respuesta con el usuario guardado.
+     }
 }

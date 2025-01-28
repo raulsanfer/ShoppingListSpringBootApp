@@ -48,4 +48,15 @@ public class UsuariosService {
             return false;
         }
     }
+
+    // método para registrar un usuario
+    public Usuarios registroUsuario (Usuarios usuarios){
+    // Verifica si el correo ya está registrado
+        if (usuariosRepositories.findByEmail(usuarios.getEmail()).isPresent()){
+            throw new IllegalStateException("El correo ya está registrado");
+        }
+    // Guarda el usuario en la base de datos
+        return usuariosRepositories.save(usuarios);
+    }
+
 }

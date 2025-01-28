@@ -31,4 +31,7 @@ public class LoginController {
             return "login";
         }
     }
+
+    // Creo el apartado de restro de usuario
+
 }

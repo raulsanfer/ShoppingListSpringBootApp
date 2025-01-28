@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -97,6 +97,13 @@
 
 <!-- Nueva Lista -->
 <div class="container new-list-section">
+    <!-- Botón en la parte superior derecha -->
+    <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-primary" onclick="location.href='nueva_lista.html';">
+            Nueva Lista
+        </button>
+    </div>
+
     <h3>Nueva Lista</h3>
     <form id="newListForm">
         <div class="form-group">
@@ -113,6 +120,7 @@
     </form>
 </div>
 
+
 <script>
     document.getElementById('saveButton').addEventListener('click', async () => {
         const listName = document.getElementById('listName').value;
@@ -125,7 +133,7 @@
             };
 
             try {
-                const response = await fetch('http://localhost:8080/api/lists', {
+                const response = await fetch('http://localhost:8000/api/lists/save', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -136,6 +144,7 @@
                 if (response.ok) {
                     alert('Lista guardada correctamente');
                     document.getElementById('newListForm').reset();
+                    window.location.href = "http://localhost:8000/api/lists";
                 } else {
                     alert('Error al guardar la lista');
                 }
