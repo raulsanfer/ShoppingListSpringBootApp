@@ -50,13 +50,13 @@ public class UsuariosService {
     }
 
     // método para registrar un usuario
-    public Usuarios registroUsuario (Usuarios usuarios){
-    // Verifica si el correo ya está registrado
-        if (usuariosRepositories.findByEmail(usuarios.getEmail()).isPresent()){
+    public Usuarios registrarUsuario(Usuarios usuario) {
+        // Validar si el correo ya está registrado
+        if (usuariosRepositories.findByEmail(usuario.getEmail()).isPresent()) {
             throw new IllegalStateException("El correo ya está registrado");
         }
     // Guarda el usuario en la base de datos
-        return usuariosRepositories.save(usuarios);
+        return usuariosRepositories.save(usuario);
     }
 
 }

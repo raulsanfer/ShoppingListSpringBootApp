@@ -3,8 +3,10 @@ package ProIntermodular.demo.controller;
 import ProIntermodular.demo.model.Usuarios;
 import ProIntermodular.demo.service.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -53,11 +55,26 @@ public class UsuariosController {
         return this.usuariosService.getByLogin(email, contrasena);
     }
 
-//Registro de usuario
+    @GetMapping("/RG")
+    public String showRGPage() {
+        return "registro";
+    }
 
-     @PostMapping("/registro")
-    public ResponseEntity<Usuarios> registrarUsuario(@RequestBody Usuarios usuarios){
-        Usuarios usuarioguardado = usuariosService.registroUsuario(usuarios);
-        return ResponseEntity.ok(usuarioguardado);// Respuesta con el usuario guardado.
-     }
+
+
+    // Procesar el formulario de registro
+    @PostMapping("usuarios/doregistro")
+    public String registrarUsuario(@ModelAttribute Usuarios usuarios, Model model){
+        Usuarios usuarioGuardado = usuariosService.registrarUsuario(usuarios);
+        return "login"; // Redirigir a la página de login (crear login.html en templates)
+    }
+
+
+
+    // Registro de usuario
+    @PostMapping("/registro")
+    public ResponseEntity<Usuarios> registrarUsuario( @RequestBody Usuarios usuarios) {
+        Usuarios usuarioGuardado = usuariosService.registrarUsuario(usuarios);
+        return new ResponseEntity<>(usuarioGuardado, HttpStatus.CREATED); // Retorna 201 Created
+    }
 }
