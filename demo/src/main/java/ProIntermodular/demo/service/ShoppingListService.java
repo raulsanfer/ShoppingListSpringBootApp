@@ -17,6 +17,11 @@ public class ShoppingListService {
         //este metodo devuelve todas las listas
         return repository.findAll();
     }
+
+    /*public List<ShoppingList> findAll(){
+        //este metodo devuelve todas las listas
+        return repository.findAllByIdUsuario();
+    }*/
     // Método que guarda una nueva lista de compras en la base de datos
     public ShoppingList guardar(ShoppingList shoppingList){
         return  repository.save(shoppingList);

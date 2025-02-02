@@ -16,7 +16,15 @@ public class ShoppingList {
     private Long id;
     private String nombre;
     private LocalDate date;
+    private Integer id_usuario;
 
+    public Integer getIdUsuario() {
+        return id_usuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.id_usuario = idUsuario;
+    }
 
     public Long getId() {
         return id;

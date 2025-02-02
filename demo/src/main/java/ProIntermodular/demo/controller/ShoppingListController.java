@@ -1,5 +1,6 @@
 package ProIntermodular.demo.controller;
 
+import jakarta.servlet.http.HttpSession;
 import ProIntermodular.demo.model.ShoppingList;
 import ProIntermodular.demo.service.ShoppingListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,12 @@ public class ShoppingListController {
     }
     // Maneja las solicitudes POST para crear una nueva lista de compras
     @PostMapping("/save")
-    public ResponseEntity<?> createList(@RequestBody ShoppingList shoppingList){
+    public ResponseEntity<?> createList(@RequestBody ShoppingList shoppingList, HttpSession session){
+        //obtenemos el id usuario logueado para grabar la lista de compra
+        Integer usuarioId = (Integer) session.getAttribute("usuarioId");
+        //antes de grabarlo en base de datos modificamos el modelo de lista de compra y le añadimos el idusuario
+        shoppingList.setIdUsuario(usuarioId);
+
         // Llama al servicio para guardar la nueva lista de compras
         var shoppingListGuardada = service.guardar(shoppingList);
 

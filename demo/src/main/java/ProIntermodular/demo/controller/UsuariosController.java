@@ -20,6 +20,8 @@ public class UsuariosController {
     @Autowired
     private UsuariosService usuariosService;
 
+
+
     @GetMapping
     public ArrayList<Usuarios> getUsuarios(){
         return this.usuariosService.getUsuarios();
@@ -55,21 +57,21 @@ public class UsuariosController {
         return this.usuariosService.getByLogin(email, contrasena);
     }
 
-    @GetMapping("/RG")
+
+    @GetMapping("/registro")
     public String showRGPage() {
+        System.out.println(" Cargando la pagina de registro...");
         return "registro";
     }
 
 
 
     // Procesar el formulario de registro
-    @PostMapping("usuarios/doregistro")
+    @PostMapping("doregistro")
     public String registrarUsuario(@ModelAttribute Usuarios usuarios, Model model){
         Usuarios usuarioGuardado = usuariosService.registrarUsuario(usuarios);
         return "login"; // Redirigir a la página de login (crear login.html en templates)
     }
-
-
 
     // Registro de usuario
     @PostMapping("/registro")

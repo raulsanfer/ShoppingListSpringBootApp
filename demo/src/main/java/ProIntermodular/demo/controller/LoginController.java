@@ -1,5 +1,6 @@
 package ProIntermodular.demo.controller;
 
+import jakarta.servlet.http.HttpSession;
 import ProIntermodular.demo.service.UsuariosService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,16 @@ public class LoginController {
     }
 
     @PostMapping("/dologin")
-    public String DoLogin(@RequestParam String email, @RequestParam String password){
+    public String DoLogin(@RequestParam String email, @RequestParam String password, HttpSession session){
         var user = this.usuariosService.getByLogin(email, password);
         if(user != null)
         {
             //dejamos pasar
+            // Guardamos el ID del usuario en la sesión
+            session.setAttribute("usuarioId", user.getId());
+            session.setAttribute("usuarioEmail", user.getEmail());
             //ir a la vista de gestion listas de compra
-            return "home";
+            return "index";
         }
         else
         {
