@@ -22,7 +22,7 @@ public class UsuariosService {
         return usuariosRepositories.save(usuarios);
     }
 
-    public Optional<Usuarios> getById(Long id) {
+    public Optional<Usuarios> getById(Integer id) {
         return usuariosRepositories.findById(id);
     }
 
@@ -30,7 +30,7 @@ public class UsuariosService {
         return usuariosRepositories.findByEmailAndContrasena(email, pass);
     }
 
-    public Usuarios updateById(Usuarios request, Long id) {
+    public Usuarios updateById(Usuarios request, Integer id) {
         Usuarios usuarios = usuariosRepositories.findById(id).get();
         usuarios.setNombre(request.getNombre());
         usuarios.setEmail(request.getEmail());
@@ -39,7 +39,7 @@ public class UsuariosService {
     }
 
 
-    public Boolean deleteUsuarios(Long id) {
+    public Boolean deleteUsuarios(Integer id) {
 
         try {
             usuariosRepositories.deleteById(id);

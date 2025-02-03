@@ -30,14 +30,24 @@ window.addEventListener('DOMContentLoaded', event => {
             const url = "/api/lists";
 
             // Llamada GET
-            const datosGet = await ObtenerApi(url);
-            console.log("GET:", datosGet);
-
+            //const datosGet = await ObtenerApi(url);
+            //console.log("GET:", datosGet);
+            cargarVistaAContenido(url);
             // Llamada POST
             //const datosPost = await EnviarApi(url, { title: "Nuevo post", body: "Contenido", userId: 1 });
             //console.log("POST:", datosPost);
         })();
     });
+
+
+    function cargarVistaAContenido(url) {
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("contenido").innerHTML = html;
+            })
+            .catch(error => console.error("Error cargando la vista:", error));
+    }
 
 });
 

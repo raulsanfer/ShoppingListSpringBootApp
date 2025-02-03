@@ -1,4 +1,5 @@
 package ProIntermodular.demo.model;
+import java.util.List;
 
 import jakarta.persistence.*;
 @Entity
@@ -16,6 +17,10 @@ public class Usuarios {
         private String email;
         @Column
         private String contrasena;
+
+        @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+        private List<ShoppingList> listasDeCompra;
+
 
         public int getId() {
             return id;

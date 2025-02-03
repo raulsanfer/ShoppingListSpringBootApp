@@ -1,0 +1,62 @@
+<!-- Nueva Lista -->
+<div class="container new-list-section" th:fragment="NuevaListaView">
+    <!-- Botón en la parte superior derecha -->
+    <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-primary" onclick="location.href='nueva_lista.html';">
+            Nueva Lista
+        </button>
+    </div>
+
+    <h3>Nueva Lista</h3>
+    <form id="newListForm">
+        <div class="form-group">
+            <label for="listName">Nombre</label>
+            <input type="text" class="form-control" id="listName" placeholder="Escribe el nombre de la lista" required>
+        </div>
+        <div class="form-group">
+            <label for="listDate">Fecha</label>
+            <input type="date" class="form-control" id="listDate" required>
+        </div>
+        <button type="button" class="btn btn-success" id="saveButton">
+            Guardar
+        </button>
+    </form>
+</div>
+
+
+<script>
+    document.getElementById('saveButton').addEventListener('click', async () => {
+        const listName = document.getElementById('listName').value;
+        const listDate = document.getElementById('listDate').value;
+
+        if (listName.trim() && listDate.trim()) {
+            const data = {
+                nombre: listName,
+                date: listDate
+            };
+
+            try {
+                const response = await fetch('http://localhost:8000/api/lists/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    alert('Lista guardada correctamente');
+                    document.getElementById('newListForm').reset();
+                    window.location.href = "http://localhost:8000/api/lists";
+                } else {
+                    alert('Error al guardar la lista');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al comunicarse con el servidor');
+            }
+        } else {
+            alert('Por favor, completa todos los campos.');
+        }
+    });
+</script>

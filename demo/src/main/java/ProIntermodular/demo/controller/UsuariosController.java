@@ -33,17 +33,17 @@ public class UsuariosController {
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<Usuarios> getUsuarioById(@PathVariable long id){
+    public Optional<Usuarios> getUsuarioById(@PathVariable Integer id){
         return this.usuariosService.getById(id);
     }
 
     @PutMapping (path = "/{id}")
-    public Usuarios updateUsuariosById(@RequestBody Usuarios usuarios , @PathVariable Long id ){
+    public Usuarios updateUsuariosById(@RequestBody Usuarios usuarios , @PathVariable Integer id ){
         return this.usuariosService.updateById(usuarios , id);
     }
 
     @DeleteMapping(path = "/{id}")
-    public String deleteById(@PathVariable ("id"  ) Long id ){
+    public String deleteById(@PathVariable ("id"  ) Integer id ){
         boolean ok = this.usuariosService.deleteUsuarios(id);
         if (ok ){
             return "Usuario de id es " + id + "eliminado";
