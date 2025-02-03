@@ -20,23 +20,40 @@ public class ShoppingListController {
 
     @GetMapping()
     public String getAllLists(Model model){
-        //yo obtengo primero los datos  // Obtiene todas las listas de compras desde el servicio
+        // Obtiene todas las listas de compras desde el servicio
         var datos = service.findAll();
-
         // Agrega los datos obtenidos al modelo para que estén disponibles en la vista
         model.addAttribute("listasCompra", datos);
         // Retorna el nombre de la vista que se renderizará (listasCompra.html)
-        return "listasCompra"; // Nombre de la vista (products.html)
+        return "listasCompra"; // Nombre de la vista
     }
 
+    @GetMapping()
+    public String getUserLists(Model model, HttpSession session) {
+        // Obtener el ID del usuario que ha iniciado sesión
+        Integer usuarioId = (Integer) session.getAttribute("usuarioId");
+
+        if (usuarioId == null) {
+            return "login"; // Si no hay usuario, redirigir al login
+        }
+
+        // Obtener las listas de compras del usuario
+//        List<ShoppingList> listasDelUsuario = service.findByUsuario(usuarioId);
+//
+//        // Pasar las listas a la vista
+//        model.addAttribute("listasCompra", listasDelUsuario);
+        return "listasCompra";
+    }
+
+
     @GetMapping("nuevaLista")
-    public  String showNuevaLista()
+    public String showNuevaLista()
     {
         return "NuevaLista";
     }
 
     @GetMapping("detalleslista")
-    public  String showDetalleLista(int id)
+    public String showDetalleLista(int id)
     {
         //1 capturar el id de la lista que quiero mostrar
 
