@@ -22,16 +22,13 @@ window.addEventListener('DOMContentLoaded', event => {
             localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
         });
     }*/
+    const contenedor = document.getElementById('contenido');
 
     const menuListas = document.body.querySelector('#mislistsas');
     menuListas.addEventListener('click', event => {
         event.preventDefault();
         (async () => {
             const url = "/api/lists";
-
-            // Llamada GET
-            //const datosGet = await ObtenerApi(url);
-            //console.log("GET:", datosGet);
             cargarVistaAContenido(url);
             // Llamada POST
             //const datosPost = await EnviarApi(url, { title: "Nuevo post", body: "Contenido", userId: 1 });
@@ -39,6 +36,16 @@ window.addEventListener('DOMContentLoaded', event => {
         })();
     });
 
+    //const menuNuevaLista = document.body.querySelector('#btnNuevaLista');
+    contenedor.addEventListener('click', function(event) {
+        if (event.target && event.target.matches('.nuevaLista')) {
+            event.preventDefault();
+            (async () => {
+                const url = "/api/lists/nuevaLista";
+                cargarVistaAContenido(url);
+            })();
+        }
+    });
 
     function cargarVistaAContenido(url) {
         fetch(url)
