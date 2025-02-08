@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import java.util.List;
@@ -24,6 +25,10 @@ public class ShoppingListService {
         return CompletableFuture.supplyAsync(() -> {
             return repository.findAll();
         });
+    }
+    public Optional<ShoppingList> getById(Long id)
+    {
+        return repository.findById(id);
     }
 
     /*public List<ShoppingList> findAll(){
