@@ -1,6 +1,9 @@
 package ProIntermodular.demo.controller;
 
+import ProIntermodular.demo.model.ProductModel;
+import ProIntermodular.demo.model.ShoppingListProducts;
 import ProIntermodular.demo.model.Usuarios;
+import ProIntermodular.demo.service.ShoppingListProductService;
 import ProIntermodular.demo.service.UsuariosService;
 import jakarta.servlet.http.HttpSession;
 import ProIntermodular.demo.model.ShoppingList;
@@ -13,6 +16,7 @@ import org.springframework.ui.Model;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 // Indica que esta clase es un controlador en Spring MVC
@@ -25,6 +29,10 @@ public class ShoppingListController {
     private ShoppingListService service;
     @Autowired
     private UsuariosService userService;
+    @Autowired
+    private MercadonaController mercaController;
+    @Autowired
+    private ShoppingListProductService listaProductService;
 
     @GetMapping()
     public CompletableFuture<String> getAllLists(Model model){
@@ -35,23 +43,12 @@ public class ShoppingListController {
         });
     }
 
-//    @GetMapping()
-//    public String getUserLists(Model model, HttpSession session) {
-//        // Obtener el ID del usuario que ha iniciado sesión
-//        Integer usuarioId = (Integer) session.getAttribute("usuarioId");
-//
-//        if (usuarioId == null) {
-//            return "login"; // Si no hay usuario, redirigir al login
-//        }
-//
-//        // Obtener las listas de compras del usuario
-////        List<ShoppingList> listasDelUsuario = service.findByUsuario(usuarioId);
-////
-////        // Pasar las listas a la vista
-////        model.addAttribute("listasCompra", listasDelUsuario);
-//        return "listasCompra";
-//    }
-
+    @GetMapping("agregarProducto")
+    public String agregarProducto(@RequestParam String idLista,Model model)
+    {
+        model.addAttribute("idLista", idLista);
+        return "fragments/agregarProducto";
+    }
 
     @GetMapping("nuevaLista")
     public String showNuevaLista()
@@ -59,21 +56,38 @@ public class ShoppingListController {
         return "fragments/NuevaLista";
     }
 
+    @PostMapping("grabarProducto")
+    public ResponseEntity<?> agregarProductoALista(@RequestParam String idLista, @RequestParam String mercaId)
+    {
+        ProductModel product = mercaController.obtenerProducto(mercaId);
+        Optional<ShoppingList> lista = service.getById(Long.valueOf(idLista));
+        if(product != null && lista.isPresent())
+        {
+            //grabar el producto a la lista
+            listaProductService.guardarProductoALista(lista.get(),product);
+            return ResponseEntity.ok().body("ok");
+        }
+        else
+        {
+            return ResponseEntity.badRequest().body("ko");
+        }
+    }
+
     @GetMapping("detallesLista")
     public String showDetalleLista(@RequestParam Long id,Model model)
     {
-        //1 capturar el id de la lista que quiero mostrar
-
         //2 consultar a BD la lista que quiero consultar
         var objetoLista = service.getById(id);
+        var productosLista = listaProductService.getListProducts(objetoLista.get());
 
         //3 cargar tambien los productos de la lista
-        if(objetoLista.isPresent())
-        {
-            model.addAttribute("listaCompra", objetoLista.get());
+        //if(productosLista.stream().count() > 0)
+        //{
+            model.addAttribute("productos", productosLista);
+            model.addAttribute("idLista", id);
             return "fragments/detallesLista";
-        }
-        return "DetallesLista";
+        //}
+        //return "DetallesLista";
         //4 con todo el objeto lista de compra relleno lo mandamos a la vista Detalle
     }
 

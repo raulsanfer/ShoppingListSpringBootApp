@@ -1,9 +1,11 @@
 package ProIntermodular.demo.controller;
 
+import ProIntermodular.demo.model.Usuarios;
 import jakarta.servlet.http.HttpSession;
 import ProIntermodular.demo.service.UsuariosService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +17,13 @@ public class LoginController {
 
     @GetMapping("/login")
     public String showLoginPage() {
-        return "login";
+        return "fragments/login";
     }
 
+    //  @RequestParam String email, @RequestParam String password, HttpSession session
     @PostMapping("/dologin")
-    public String DoLogin(@RequestParam String email, @RequestParam String password, HttpSession session){
-        var user = this.usuariosService.getByLogin(email, password);
+    public ResponseEntity<?> DoLogin(@RequestBody Usuarios user, HttpSession session){
+        var userLogin = this.usuariosService.getByLogin(user.getEmail(), user.getContrasena());
         if(user != null)
         {
             //dejamos pasar
@@ -28,11 +31,12 @@ public class LoginController {
             session.setAttribute("usuarioId", user.getId());
             session.setAttribute("usuarioEmail", user.getEmail());
             //ir a la vista de gestion listas de compra
-            return "index";
+            return ResponseEntity.ok().body("ok");
+           // return "index";
         }
         else
         {
-            return "login";
+            return ResponseEntity.badRequest().body("ko");
         }
     }
 

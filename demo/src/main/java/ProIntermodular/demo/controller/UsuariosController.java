@@ -35,12 +35,6 @@ public class UsuariosController {
     public Optional<Usuarios> getUsuarioById(@PathVariable Integer id){
         return this.usuariosService.getById(id);
     }
-//    @GetMapping(path = "/{id}")
-//    public CompletableFuture<Optional<Usuarios>> getUsuarioById(@PathVariable Integer id){
-//        return this.usuariosService.getById(id).thenApply(datos -> {
-//            return datos;
-//        });
-//    }
 
     @PutMapping (path = "/{id}")
     public Usuarios updateUsuariosById(@RequestBody Usuarios usuarios , @PathVariable Integer id ){

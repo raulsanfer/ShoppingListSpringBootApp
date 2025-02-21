@@ -67,6 +67,8 @@
    .container li {
        margin: 10px 0;
    }
+
+
   </style>
 </head>
 <body>
@@ -83,24 +85,19 @@
     </div>
     Listas
   </a>
+  <a href="#" id="verlogin" >
+    <div class="icon">
+      <i class="bi bi-box-arrow-in-right"></i>
+    </div>
+    Entrar
+  </a>
 </div>
 <div class="container" id="contenido">
-  <h2>Lista de la compra (28)</h2>
-  <ul>
-    <li>
-      <input type="checkbox" id="item1">
-      <label for="item1">añade a la lista de la compra</label>
-      <span>sábado, noviembre 19, 4:33 p. m.</span>
-    </li>
-    <li>
-      <input type="checkbox" id="item2">
-      <label for="item2">fideos</label>
-      <span>martes, noviembre 15, 2:15 p. m.</span>
-    </li>
-  </ul>
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script th:src="@{/js/scripts.js}" defer></script>
+<script th:src="@{/js/addproductscripts.js}" defer></script>
 <script th:src="@{/js/apiFetch.js}" defer></script>
 </body>
 
